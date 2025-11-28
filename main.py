@@ -4,7 +4,10 @@ from scipy.io import wavfile
 from scipy.signal import hilbert, lfilter
 
 # --- 1. Wczytanie sygnału ---
-fs, data = wavfile.read("sample.wav")
+fs, data = wavfile.read("mono.wav")
+# fs, data = wavfile.read("sample.wav")
+print(f"fs:{fs}")
+print(f"data_len:{len(data)}")
 
 # Normalizacja do [-1, 1]
 if data.dtype == np.int16:
@@ -38,8 +41,8 @@ time = np.arange(len(data)) / fs
 
 plt.figure(figsize=(12,6))
 plt.plot(time, data, label="Sygnał oryginalny", alpha=0.5)
-# plt.plot(time, envelope_abs, label="Abs + filtr LP", color="red")
-plt.plot(time_rms, envelope_rms, label="RMS (20 ms)", color="green")
+plt.plot(time, envelope_abs, label="Abs + filtr LP", color="red")
+# plt.plot(time_rms, envelope_rms, label="RMS (20 ms)", color="green")
 # plt.plot(time, envelope_hilbert, label="Hilbert", color="orange")
 plt.xlabel("Czas [s]")
 plt.ylabel("Amplituda")
