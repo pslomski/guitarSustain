@@ -1,26 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import warnings
-from scipy.io import wavfile
 from scipy.optimize import curve_fit
-
-
-def loadWaveFile(filename):
-    print(f"Loading wave file: {filename}")
-    with warnings.catch_warnings():
-        warnings.filterwarnings("ignore")
-        fs, data = wavfile.read(filename)
-    return fs, normalize(data)
-
-
-def normalize(data):
-    if data.dtype == np.int16:
-        data = data / 32768.0
-    elif data.dtype == np.int32:
-        data = data / 2147483648.0
-    else:
-        data = data.astype(float)
-    return data
+from wavefile import WaveFile
 
 
 def get_frame_size(fs, frame_size_ms):
@@ -120,7 +101,8 @@ def main():
     # filename = "data/squire.wav"
     # filename = "data/telecaster.wav"
     filename = "data/witkowski.wav"
-    fs, data = loadWaveFile(filename)
+    waveFile = WaveFile()
+    fs, data = waveFile.load(filename)
     print(f"Sampling frequency: {fs} Hz")
     frameSize = get_frame_size(fs, frame_size_ms)
     print(f"Frame size: {frameSize} samples ({frameSize/fs*1000:.1f} ms)")
@@ -156,7 +138,7 @@ def main():
     # plt.plot(time_fit, funLin(time_fit, *poptLin), label="ax+b", color="red")
     plt.xlabel("Czas [s]")
     plt.ylabel("Amplituda")
-    plt.title("Krzywa zaniku sygnału")
+    plt.title("Signal and it's RMS")
     plt.legend()
     plt.show()
 
