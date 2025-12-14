@@ -3,7 +3,7 @@ import warnings
 from scipy.io import wavfile
 
 
-class WaveFile():
+class WaveFile:
     def __init__(self):
         pass
 
@@ -13,7 +13,6 @@ class WaveFile():
             warnings.filterwarnings("ignore")
             fs, data = wavfile.read(filename)
         return fs, self.normalize(data)
-
 
     def normalize(self, data):
         if data.dtype == np.int16:

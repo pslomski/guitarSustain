@@ -1,3 +1,9 @@
+# modules
+python3 -m pip install pytest
+
+# unit tests
+python3 -m pytest -q
+
 # guitarSustain
 
 guitar      t_half [ms]
