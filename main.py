@@ -42,8 +42,9 @@ def main():
     # filename = "data/gibson.wav"
     # filename = "data/hagstrom.wav"
     # filename = "data/squire.wav"
+    filename = "data/squire e flat.wav"
     # filename = "data/telecaster.wav"
-    filename = "data/witkowski.wav"
+    # filename = "data/witkowski.wav"
     waveFile = WaveFile()
     fs, data = waveFile.load(filename)
     print(f"Sampling frequency: {fs} Hz")
@@ -75,12 +76,11 @@ def main():
 
     time = np.arange(len(data)) / fs
     plt.figure(figsize=(12, 6))
-    plt.plot(time, data, label="Sygnał oryginalny", alpha=0.5)
+    plt.plot(time, data, label="signal", alpha=0.5)
     plt.plot(time_rms, envelope_rms, label="RMS (10 ms)", color="green")
-    plt.plot(time_fit, funExp(time_fit, *popt), label="e^(-at)", color="blue")
-    # plt.plot(time_fit, funLin(time_fit, *poptLin), label="ax+b", color="red")
-    plt.xlabel("Czas [s]")
-    plt.ylabel("Amplituda")
+    plt.plot(time_fit, funExp(time_fit, *popt), label="fit", color="blue")
+    plt.xlabel("time [s]")
+    plt.ylabel("amplitude")
     plt.title("Signal and it's RMS")
     plt.legend()
     plt.show()
